@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="MinIO">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://min.io/resources/favs/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://min.io/resources/favs/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://min.io/resources/favs/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://min.io/resources/favs/favicon-16x16.png">
+
+        <title>MinIO | Golang Client Quickstart Guide</title>
+      <meta name="description" content="The MinIO Go Client SDK provides simple APIs to access any Amazon S3 compatible object storage server.">
+      <meta name="keywords" content="Golang, Go, MinIO Golang Client, MinIO Go Client">
+
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+    <link href="/docs/css/gluegun.min.css" rel="stylesheet">
+    <link href="/docs/vendors/highlight.js/default.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+
+            <style type="text/css">
+              .algolia-autocomplete {
+                width: 100%;
+                left: 0; }
+              .algolia-autocomplete .ds-dropdown-menu {
+                min-width: 500px;
+                max-width: 800px; }
+              @media (max-width: 991px) {
+                .algolia-autocomplete .ds-dropdown-menu {
+                  min-width: 200px; } }
+              .algolia-autocomplete .ds-dropdown-menu:before {
+                display: none !important; }
+            </style>
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar__inner">
+        <a href="" class="sidebar__close">
+          <svg class="sidebar__close__icon">
+            <polygon points="15.8333324 5.34166622 14.6583325 4.16666642 9.99999942 8.82499958 5.34166622 4.16666642 4.16666642 5.34166622 8.82499958 9.99999942 4.16666642 14.6583325 5.34166622 15.8333324 9.99999942 11.1749992 14.6583325 15.8333324 15.8333324 14.6583325 11.1749992 9.99999942"></polygon>
+          </svg>
+        </a>
+
+        
+          
+            <a href="https://min.io" class="logo">
+          
+          
+              <img src="https://min.io/resources/img/logo/MINIO_wordmark.png" alt="">
+          
+            </a>
+        
+
+        <ul class="doc-link">
+          
+                <li class='doc-link__category '>
+                  <a href="" class="doc-link__header">
+                    MinIO Server                  </a>
+                  <ul class="doc-link__items" style=''>
+                        <li>
+                            <a href="/docs/minio-quickstart-guide.html">
+                                MinIO Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-docker-quickstart-guide.html">
+                                MinIO Docker Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-erasure-code-quickstart-guide.html">
+                                MinIO Erasure Code Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/distributed-minio-quickstart-guide.html">
+                                Distributed MinIO Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/disaggregated-spark-and-hadoop-hive-with-minio.html">
+                                Disaggregated Spark and Hadoop Hive with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-secure-access-to-minio-server-with-tls.html">
+                                How to secure access to MinIO server with TLS                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-bucket-notification-guide.html">
+                                MinIO Bucket Notification Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-server-limits-per-tenant.html">
+                                MinIO Server Limits Per Tenant                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-server-configuration-guide.html">
+                                MinIO Server Configuration Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/multi-tenant-minio-deployment-guide.html">
+                                Multi-tenant MinIO Deployment Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-gateway-for-azure.html">
+                                MinIO Gateway for Azure                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-gateway-for-nas.html">
+                                MinIO Gateway for NAS                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-gateway-for-s3.html">
+                                MinIO Gateway for S3                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-gateway-for-hdfs.html">
+                                MinIO Gateway for HDFS                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-disk-cache-guide.html">
+                                MinIO Disk Cache Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-monitoring-guide.html">
+                                MinIO Monitoring Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-monitor-minio-using-prometheus.html">
+                                How to monitor MinIO using Prometheus                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-federation-quickstart-guide.html">
+                                MinIO Federation Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-kms-quickstart-guide.html">
+                                MinIO KMS Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-select-api-quickstart-guide.html">
+                                MinIO Select API Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-compression-guide.html">
+                                MinIO Compression Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-multi-user-quickstart-guide.html">
+                                MinIO Multi-User Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-sts-quickstart-guide.html">
+                                MinIO STS Quickstart Guide                            </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class='doc-link__category '>
+                  <a href="" class="doc-link__header">
+                    MinIO Deployment                  </a>
+                  <ul class="doc-link__items" style=''>
+                        <li>
+                            <a href="/docs/minio-deployment-quickstart-guide.html">
+                                MinIO Deployment Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/deploy-minio-on-docker-swarm.html">
+                                Deploy MinIO on Docker Swarm                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/deploy-minio-on-kubernetes.html">
+                                Deploy MinIO on Kubernetes                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/deploy-minio-on-docker-compose.html">
+                                Deploy MinIO on Docker Compose                            </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class='doc-link__category '>
+                  <a href="" class="doc-link__header">
+                    MinIO Client                  </a>
+                  <ul class="doc-link__items" style=''>
+                        <li>
+                            <a href="/docs/minio-client-quickstart-guide.html">
+                                MinIO Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-client-complete-guide.html">
+                                MinIO Client Complete Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-admin-complete-guide.html">
+                                MinIO Admin Complete Guide                            </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class='doc-link__category toggled'>
+                  <a href="" class="doc-link__header">
+                    MinIO SDKs                  </a>
+                  <ul class="doc-link__items" style='display: block'>
+                        <li>
+                            <a href="/docs/javascript-client-quickstart-guide.html">
+                                JavaScript Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/javascript-client-api-reference.html">
+                                JavaScript Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/java-client-quickstart-guide.html">
+                                Java Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/java-client-api-reference.html">
+                                Java Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/python-client-quickstart-guide.html">
+                                Python Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/python-client-api-reference.html">
+                                Python Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/golang-client-quickstart-guide.html" class="doc-link__active">
+                                Golang Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/golang-client-api-reference.html">
+                                Golang Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/dotnet-client-quickstart-guide.html">
+                                .NET Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/dotnet-client-api-reference.html">
+                                .NET Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/haskell-client-quickstart-guide.html">
+                                Haskell Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/haskell-client-api-reference.html">
+                                Haskell Client API Reference                            </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class='doc-link__category '>
+                  <a href="" class="doc-link__header">
+                    Cookbook                  </a>
+                  <ul class="doc-link__items" style=''>
+                        <li>
+                            <a href="/docs/s3cmd-with-minio.html">
+                                S3cmd with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/aws-cli-with-minio.html">
+                                AWS CLI with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/restic-with-minio.html">
+                                restic with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/store-mysql-backups-in-minio.html">
+                                Store MySQL Backups in MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/store-mongodb-backups-in-minio.html">
+                                Store MongoDB Backups in MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/store-postgresql-backups-in-minio.html">
+                                Store PostgreSQL Backups in MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/setup-caddy-proxy-with-minio.html">
+                                Setup Caddy proxy with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/setup-nginx-proxy-with-minio.html">
+                                Setup Nginx proxy with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/aggregate-apache-logs-with-fluentd-and-minio.html">
+                                Store Apache Logs into MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/rclone-with-minio-server.html">
+                                Rclone with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/setup-apache-http-proxy-with-minio-server.html">
+                                Setup Apache HTTP proxy with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/upload-files-from-browser-using-pre-signed-urls.html">
+                                Upload files from browser using pre-signed URLs                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-run-minio-in-freenas.html">
+                                How to run MinIO in FreeNAS?                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-php-with-minio-server.html">
+                                How to use AWS SDK for PHP with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-ruby-with-minio-server.html">
+                                How to use AWS SDK for Ruby with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-python-with-minio-server.html">
+                                How to use AWS SDK for Python with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-javascript-with-minio-server.html">
+                                How to use AWS SDK for JavaScript with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-run-multiple-minio-servers-with-traef-k.html">
+                                How to run multiple MinIO servers with Træfɪk                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-go-with-minio-server.html">
+                                How to use AWS SDK for Go with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-java-with-minio-server.html">
+                                How to use AWS SDK for Java with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-paperclip-with-minio-server.html">
+                                How to use Paperclip with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-net-with-minio-server.html">
+                                How to use AWS SDK for .NET with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-minio-s-server-side-encryption-with-aws-cli.html">
+                                How to use MinIO's server-side-encryption with aws-cli                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/generate-let-s-encypt-certificate-using-concert-for-minio.html">
+                                Generate Let's Encrypt certificate using Certbot for MinIO                            </a>
+                        </li>
+                  </ul>
+                </li>
+          
+        </ul>
+      </div>
+    </aside>
+
+    <section class="content">
+
+    
+      <header class="header">
+        <a href="" class="sidebar-toggle"></a>
+
+        <div class="search">
+          <input type="text" class="search__text" placeholder="Search documents...">
+        </div>
+
+        <div class="doc-actions">
+
+          <div class="dropdown doc-actions__edit">
+              <a href="" class="dropdown__toggle dropdown__toggle--caret doc-actions__item">
+                <img src="/docs/img/icons/edit.svg" alt="">
+                <span>Suggest an Edit</span>
+              </a>
+
+              <div class="dropdown__menu dropdown__menu--right">
+                <ol>
+                  <li>Log into Github.</li>
+                  <li>Edit files with your changes by clicking on 'Edit the file in your fork of this project' button in Github.</li>
+                  <li>Commit changes via 'Create a new branch for this commit and start a pull request'.</li>
+                </ol>
+
+                <a href="https://github.com/minio/minio-go/blob/master/README.md" class="button button--primary button--block">Edit in Github</a>
+              </div>
+          </div>
+
+          
+            <div class="dropdown">
+              <a href="" class="dropdown__toggle dropdown__toggle--caret doc-actions__item">
+                <img src="/docs/img/icons/translate.svg" alt="">
+                <span>Translation</span>
+              </a>
+
+              <div class="dropdown__menu dropdown__menu--right">
+                    <a class="dropdown__item" href="/cn/">Chinese</a>
+              </div>
+            </div>
+        </div>
+      </header>
+      <section class="doc-preview">
+        <h1>MinIO Go Client SDK for Amazon S3 Compatible Cloud Storage <a href="https://slack.min.io"><img src="https://slack.min.io/slack?type=svg" alt="Slack"></a> <a href="https://sourcegraph.com/github.com/minio/minio-go?badge"><img src="https://sourcegraph.com/github.com/minio/minio-go/-/badge.svg" alt="Sourcegraph"></a> <a href="https://github.com/minio/minio-go/blob/master/LICENSE"><img src="http://img.shields.io/badge/license-Apache%20V2-blue.svg" alt="Apache V2 License"></a></h1>
+
+<p>The MinIO Go Client SDK provides simple APIs to access any Amazon S3 compatible object storage.</p>
+
+<p>This quickstart guide will show you how to install the MinIO client SDK, connect to MinIO, and provide a walkthrough for a simple file uploader. For a complete list of APIs and examples, please take a look at the <a href="https://docs.min.io/docs/golang-client-api-reference">Go Client API Reference</a>.</p>
+
+<p>This document assumes that you have a working <a href="https://golang.org/doc/install">Go development environment</a>.</p>
+
+<h2>Download from Github</h2>
+
+<pre lang="sh"><code>GO111MODULE=on go get github.com/minio/minio-go/v6
+</code></pre>
+
+<h2>Initialize MinIO Client</h2>
+
+<p>MinIO client requires the following four parameters specified to connect to an Amazon S3 compatible object storage.</p>
+
+<table><thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">endpoint</td>
+<td align="left">URL to object storage service.</td>
+</tr>
+<tr>
+<td align="left">accessKeyID</td>
+<td align="left">Access key is the user ID that uniquely identifies your account.</td>
+</tr>
+<tr>
+<td align="left">secretAccessKey</td>
+<td align="left">Secret key is the password to your account.</td>
+</tr>
+<tr>
+<td align="left">secure</td>
+<td align="left">Set this value to &#39;true&#39; to enable secure (HTTPS) access.</td>
+</tr>
+</tbody></table>
+
+<pre lang="go"><code>package main
+
+import (
+    &quot;github.com/minio/minio-go/v6&quot;
+    &quot;log&quot;
+)
+
+func main() {
+    endpoint := &quot;play.min.io&quot;
+    accessKeyID := &quot;Q3AM3UQ867SPQQA43P2F&quot;
+    secretAccessKey := &quot;zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG&quot;
+    useSSL := true
+
+    // Initialize minio client object.
+    minioClient, err := minio.New(endpoint, accessKeyID, secretAccessKey, useSSL)
+    if err != nil {
+        log.Fatalln(err)
+    }
+
+    log.Printf(&quot;%#v\n&quot;, minioClient) // minioClient is now setup
+}
+</code></pre>
+
+<h2>Quick Start Example - File Uploader</h2>
+
+<p>This example program connects to an object storage server, creates a bucket and uploads a file to the bucket.</p>
+
+<p>We will use the MinIO server running at <a href="https://play.min.io">https://play.min.io</a> in this example. Feel free to use this service for testing and development. Access credentials shown in this example are open to the public.</p>
+
+<h3>FileUploader.go</h3>
+
+<pre lang="go"><code>package main
+
+import (
+    &quot;github.com/minio/minio-go/v6&quot;
+    &quot;log&quot;
+)
+
+func main() {
+    endpoint := &quot;play.min.io&quot;
+    accessKeyID := &quot;Q3AM3UQ867SPQQA43P2F&quot;
+    secretAccessKey := &quot;zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG&quot;
+    useSSL := true
+
+    // Initialize minio client object.
+    minioClient, err := minio.New(endpoint, accessKeyID, secretAccessKey, useSSL)
+    if err != nil {
+        log.Fatalln(err)
+    }
+
+    // Make a new bucket called mymusic.
+    bucketName := &quot;mymusic&quot;
+    location := &quot;us-east-1&quot;
+
+    err = minioClient.MakeBucket(bucketName, location)
+    if err != nil {
+        // Check to see if we already own this bucket (which happens if you run this twice)
+        exists, errBucketExists := minioClient.BucketExists(bucketName)
+        if errBucketExists == nil &amp;&amp; exists {
+            log.Printf(&quot;We already own %s\n&quot;, bucketName)
+        } else {
+            log.Fatalln(err)
+        }
+    } else {
+        log.Printf(&quot;Successfully created %s\n&quot;, bucketName)
+    }
+
+    // Upload the zip file
+    objectName := &quot;golden-oldies.zip&quot;
+    filePath := &quot;/tmp/golden-oldies.zip&quot;
+    contentType := &quot;application/zip&quot;
+
+    // Upload the zip file with FPutObject
+    n, err := minioClient.FPutObject(bucketName, objectName, filePath, minio.PutObjectOptions{ContentType:contentType})
+    if err != nil {
+        log.Fatalln(err)
+    }
+
+    log.Printf(&quot;Successfully uploaded %s of size %d\n&quot;, objectName, n)
+}
+</code></pre>
+
+<h3>Run FileUploader</h3>
+
+<pre lang="sh"><code>go run file-uploader.go
+2016/08/13 17:03:28 Successfully created mymusic
+2016/08/13 17:03:40 Successfully uploaded golden-oldies.zip of size 16253413
+
+mc ls play/mymusic/
+[2016-05-27 16:02:16 PDT]  17MiB golden-oldies.zip
+</code></pre>
+
+<h2>API Reference</h2>
+
+<p>The full API Reference is available here.</p>
+
+<ul>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference">Complete API Reference</a></li>
+</ul>
+
+<h3>API Reference : Bucket Operations</h3>
+
+<ul>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#MakeBucket"><code>MakeBucket</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#ListBuckets"><code>ListBuckets</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#BucketExists"><code>BucketExists</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#RemoveBucket"><code>RemoveBucket</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#ListObjects"><code>ListObjects</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#ListObjectsV2"><code>ListObjectsV2</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#ListIncompleteUploads"><code>ListIncompleteUploads</code></a></li>
+</ul>
+
+<h3>API Reference : Bucket policy Operations</h3>
+
+<ul>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#SetBucketPolicy"><code>SetBucketPolicy</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#GetBucketPolicy"><code>GetBucketPolicy</code></a></li>
+</ul>
+
+<h3>API Reference : Bucket notification Operations</h3>
+
+<ul>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#SetBucketNotification"><code>SetBucketNotification</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#GetBucketNotification"><code>GetBucketNotification</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#RemoveAllBucketNotification"><code>RemoveAllBucketNotification</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#ListenBucketNotification"><code>ListenBucketNotification</code></a> (MinIO Extension)</li>
+</ul>
+
+<h3>API Reference : File Object Operations</h3>
+
+<ul>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#FPutObject"><code>FPutObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#FGetObject"><code>FGetObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#FPutObjectWithContext"><code>FPutObjectWithContext</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#FGetObjectWithContext"><code>FGetObjectWithContext</code></a></li>
+</ul>
+
+<h3>API Reference : Object Operations</h3>
+
+<ul>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#GetObject"><code>GetObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#PutObject"><code>PutObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#GetObjectWithContext"><code>GetObjectWithContext</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#PutObjectWithContext"><code>PutObjectWithContext</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#PutObjectStreaming"><code>PutObjectStreaming</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#StatObject"><code>StatObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#CopyObject"><code>CopyObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#RemoveObject"><code>RemoveObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#RemoveObjects"><code>RemoveObjects</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#RemoveIncompleteUpload"><code>RemoveIncompleteUpload</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#SelectObjectContent"><code>SelectObjectContent</code></a></li>
+</ul>
+
+<h3>API Reference : Presigned Operations</h3>
+
+<ul>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#PresignedGetObject"><code>PresignedGetObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#PresignedPutObject"><code>PresignedPutObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#PresignedHeadObject"><code>PresignedHeadObject</code></a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference#PresignedPostPolicy"><code>PresignedPostPolicy</code></a></li>
+</ul>
+
+<h3>API Reference : Client custom settings</h3>
+
+<ul>
+<li><a href="http://docs.min.io/docs/golang-client-api-reference#SetAppInfo"><code>SetAppInfo</code></a></li>
+<li><a href="http://docs.min.io/docs/golang-client-api-reference#SetCustomTransport"><code>SetCustomTransport</code></a></li>
+<li><a href="http://docs.min.io/docs/golang-client-api-reference#TraceOn"><code>TraceOn</code></a></li>
+<li><a href="http://docs.min.io/docs/golang-client-api-reference#TraceOff"><code>TraceOff</code></a></li>
+</ul>
+
+<h2>Full Examples</h2>
+
+<h3>Full Examples : Bucket Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/makebucket.go">makebucket.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/listbuckets.go">listbuckets.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/bucketexists.go">bucketexists.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/removebucket.go">removebucket.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/listobjects.go">listobjects.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/listobjectsV2.go">listobjectsV2.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/listincompleteuploads.go">listincompleteuploads.go</a></li>
+</ul>
+
+<h3>Full Examples : Bucket policy Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/setbucketpolicy.go">setbucketpolicy.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/getbucketpolicy.go">getbucketpolicy.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/listbucketpolicies.go">listbucketpolicies.go</a></li>
+</ul>
+
+<h3>Full Examples : Bucket lifecycle Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/setbucketlifecycle.go">setbucketlifecycle.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/getbucketlifecycle.go">getbucketlifecycle.go</a></li>
+</ul>
+
+<h3>Full Examples : Bucket encryption Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/setbucketencryption.go">setbucketencryption.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/getbucketencryption.go">getbucketencryption.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/deletebucketencryption.go">deletebucketencryption.go</a></li>
+</ul>
+
+<h3>Full Examples : Bucket notification Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/setbucketnotification.go">setbucketnotification.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/getbucketnotification.go">getbucketnotification.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/removeallbucketnotification.go">removeallbucketnotification.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/minio/listenbucketnotification.go">listenbucketnotification.go</a> (MinIO Extension)</li>
+</ul>
+
+<h3>Full Examples : File Object Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/fputobject.go">fputobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/fgetobject.go">fgetobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/fputobject-context.go">fputobject-context.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/fgetobject-context.go">fgetobject-context.go</a></li>
+</ul>
+
+<h3>Full Examples : Object Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/putobject.go">putobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/getobject.go">getobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/putobject-context.go">putobject-context.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/getobject-context.go">getobject-context.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/statobject.go">statobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/copyobject.go">copyobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/removeobject.go">removeobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/removeincompleteupload.go">removeincompleteupload.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/removeobjects.go">removeobjects.go</a></li>
+</ul>
+
+<h3>Full Examples : Encrypted Object Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/put-encrypted-object.go">put-encrypted-object.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/get-encrypted-object.go">get-encrypted-object.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/fputencrypted-object.go">fput-encrypted-object.go</a></li>
+</ul>
+
+<h3>Full Examples : Presigned Operations</h3>
+
+<ul>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/presignedgetobject.go">presignedgetobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/presignedputobject.go">presignedputobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/presignedheadobject.go">presignedheadobject.go</a></li>
+<li><a href="https://github.com/minio/minio-go/blob/master/examples/s3/presignedpostpolicy.go">presignedpostpolicy.go</a></li>
+</ul>
+
+<h2>Explore Further</h2>
+
+<ul>
+<li><a href="https://docs.min.io">Complete Documentation</a></li>
+<li><a href="https://docs.min.io/docs/golang-client-api-reference">MinIO Go Client SDK API Reference</a></li>
+</ul>
+
+<h2>Contribute</h2>
+
+<p><a href="https://github.com/minio/minio-go/blob/master/CONTRIBUTING.md">Contributors Guide</a></p>
+
+<p><a href="https://travis-ci.org/minio/minio-go"><img src="https://travis-ci.org/minio/minio-go.svg" alt="Build Status"></a><br>
+<a href="https://ci.appveyor.com/project/harshavardhana/minio-go"><img src="https://ci.appveyor.com/api/projects/status/1d05e6nvxcelmrak?svg=true" alt="Build status"></a></p>
+
+<h2>License</h2>
+
+<p>This SDK is distributed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>, see <a href="./LICENSE">LICENSE</a> and <a href="./NOTICE">NOTICE</a> for more information.</p>
+      </section>
+            <footer class="footer">
+
+                          <div class="footer__widget">
+                              <a href="https://slack.min.io">Talk to the community</a>
+                          </div>
+
+      </footer>
+    </section>
+
+    <script src="/docs/vendors/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/docs/vendors/highlight.js/highlight.min.js"></script>
+    <script src="/docs/vendors/clipboard.js/clipboard.min.js"></script>
+
+            <!-- Algolia DocSearch -->
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+            <script type="text/javascript">
+              docsearch ({
+                  apiKey: '0ba0d26da4d1483f96c03fe508304a64',
+                  indexName: 'minio',
+                  inputSelector: '.search__text',
+                  algoliaOptions: { 'facetFilters': ["tags: en"] }
+              });
+            </script>
+          <!-- Google Analytics -->
+          <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push (arguments)
+                        }, i[r].l = 1 * new Date ();
+                a = s.createElement (o),
+                        m = s.getElementsByTagName (o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore (a, m)
+            }) (window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            ga ('create', 'UA-56860620-1', 'auto');
+            ga ('send', 'pageview');
+          </script>
+          <!-- LeadFeeder -->
+          <script>
+            (function(){
+              window.ldfdr = window.ldfdr || {};
+              (function(d, s, ss, fs){
+                fs = d.getElementsByTagName(s)[0];
+                function ce(src){
+                  var cs  = d.createElement(s);
+                  cs.src = src;
+                  setTimeout(function(){fs.parentNode.insertBefore(cs,fs)}, 1);
+                }
+                ce(ss);
+              })(document, 'script', 'https://lftracker.leadfeeder.com/lftracker_v1_DzLR5a5kKJA7BoQ2.js');
+            })();
+          </script>
+          <!-- KickFire -->
+          <script>
+            var DID = 258964;
+            var MyPageName = window.location.href.replace("http://","");
+          </script>
+          <script src="https://stats.sa-as.com/live.js"></script>
+
+    <script src="/docs/js/gluegun.min.js"></script>
+  </body>
+</html>

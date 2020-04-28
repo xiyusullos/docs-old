@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="MinIO">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://min.io/resources/favs/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://min.io/resources/favs/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://min.io/resources/favs/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://min.io/resources/favs/favicon-16x16.png">
+
+        <title>MinIO | Learn more about MinIO's Docker Implementation</title>
+      <meta name="description" content="The MinIO Docker Quickstart Guide offers examples, code and documentation for those using Docker to run MinIO">
+      <meta name="keywords" content="Docker, MinIO container, minio container with persistent storage, Standalone MinIO on Docker, MinIO Docker Tips, Distributed MinIO on Docker">
+
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+    <link href="/docs/css/gluegun.min.css" rel="stylesheet">
+    <link href="/docs/vendors/highlight.js/default.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+
+            <style type="text/css">
+              .algolia-autocomplete {
+                width: 100%;
+                left: 0; }
+              .algolia-autocomplete .ds-dropdown-menu {
+                min-width: 500px;
+                max-width: 800px; }
+              @media (max-width: 991px) {
+                .algolia-autocomplete .ds-dropdown-menu {
+                  min-width: 200px; } }
+              .algolia-autocomplete .ds-dropdown-menu:before {
+                display: none !important; }
+            </style>
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar__inner">
+        <a href="" class="sidebar__close">
+          <svg class="sidebar__close__icon">
+            <polygon points="15.8333324 5.34166622 14.6583325 4.16666642 9.99999942 8.82499958 5.34166622 4.16666642 4.16666642 5.34166622 8.82499958 9.99999942 4.16666642 14.6583325 5.34166622 15.8333324 9.99999942 11.1749992 14.6583325 15.8333324 15.8333324 14.6583325 11.1749992 9.99999942"></polygon>
+          </svg>
+        </a>
+
+        
+          
+            <a href="https://min.io" class="logo">
+          
+          
+              <img src="https://min.io/resources/img/logo/MINIO_wordmark.png" alt="">
+          
+            </a>
+        
+
+        <ul class="doc-link">
+          
+                <li class='doc-link__category toggled'>
+                  <a href="" class="doc-link__header">
+                    MinIO Server                  </a>
+                  <ul class="doc-link__items" style='display: block'>
+                        <li>
+                            <a href="/docs/minio-quickstart-guide.html">
+                                MinIO Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-docker-quickstart-guide.html" class="doc-link__active">
+                                MinIO Docker Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-erasure-code-quickstart-guide.html">
+                                MinIO Erasure Code Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/distributed-minio-quickstart-guide.html">
+                                Distributed MinIO Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/disaggregated-spark-and-hadoop-hive-with-minio.html">
+                                Disaggregated Spark and Hadoop Hive with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-secure-access-to-minio-server-with-tls.html">
+                                How to secure access to MinIO server with TLS                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-bucket-notification-guide.html">
+                                MinIO Bucket Notification Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-server-limits-per-tenant.html">
+                                MinIO Server Limits Per Tenant                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-server-configuration-guide.html">
+                                MinIO Server Configuration Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/multi-tenant-minio-deployment-guide.html">
+                                Multi-tenant MinIO Deployment Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-gateway-for-azure.html">
+                                MinIO Gateway for Azure                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-gateway-for-nas.html">
+                                MinIO Gateway for NAS                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-gateway-for-s3.html">
+                                MinIO Gateway for S3                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-gateway-for-hdfs.html">
+                                MinIO Gateway for HDFS                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-disk-cache-guide.html">
+                                MinIO Disk Cache Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-monitoring-guide.html">
+                                MinIO Monitoring Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-monitor-minio-using-prometheus.html">
+                                How to monitor MinIO using Prometheus                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-federation-quickstart-guide.html">
+                                MinIO Federation Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-kms-quickstart-guide.html">
+                                MinIO KMS Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-select-api-quickstart-guide.html">
+                                MinIO Select API Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-compression-guide.html">
+                                MinIO Compression Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-multi-user-quickstart-guide.html">
+                                MinIO Multi-User Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-sts-quickstart-guide.html">
+                                MinIO STS Quickstart Guide                            </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class='doc-link__category '>
+                  <a href="" class="doc-link__header">
+                    MinIO Deployment                  </a>
+                  <ul class="doc-link__items" style=''>
+                        <li>
+                            <a href="/docs/minio-deployment-quickstart-guide.html">
+                                MinIO Deployment Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/deploy-minio-on-docker-swarm.html">
+                                Deploy MinIO on Docker Swarm                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/deploy-minio-on-kubernetes.html">
+                                Deploy MinIO on Kubernetes                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/deploy-minio-on-docker-compose.html">
+                                Deploy MinIO on Docker Compose                            </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class='doc-link__category '>
+                  <a href="" class="doc-link__header">
+                    MinIO Client                  </a>
+                  <ul class="doc-link__items" style=''>
+                        <li>
+                            <a href="/docs/minio-client-quickstart-guide.html">
+                                MinIO Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-client-complete-guide.html">
+                                MinIO Client Complete Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/minio-admin-complete-guide.html">
+                                MinIO Admin Complete Guide                            </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class='doc-link__category '>
+                  <a href="" class="doc-link__header">
+                    MinIO SDKs                  </a>
+                  <ul class="doc-link__items" style=''>
+                        <li>
+                            <a href="/docs/javascript-client-quickstart-guide.html">
+                                JavaScript Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/javascript-client-api-reference.html">
+                                JavaScript Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/java-client-quickstart-guide.html">
+                                Java Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/java-client-api-reference.html">
+                                Java Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/python-client-quickstart-guide.html">
+                                Python Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/python-client-api-reference.html">
+                                Python Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/golang-client-quickstart-guide.html">
+                                Golang Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/golang-client-api-reference.html">
+                                Golang Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/dotnet-client-quickstart-guide.html">
+                                .NET Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/dotnet-client-api-reference.html">
+                                .NET Client API Reference                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/haskell-client-quickstart-guide.html">
+                                Haskell Client Quickstart Guide                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/haskell-client-api-reference.html">
+                                Haskell Client API Reference                            </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class='doc-link__category '>
+                  <a href="" class="doc-link__header">
+                    Cookbook                  </a>
+                  <ul class="doc-link__items" style=''>
+                        <li>
+                            <a href="/docs/s3cmd-with-minio.html">
+                                S3cmd with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/aws-cli-with-minio.html">
+                                AWS CLI with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/restic-with-minio.html">
+                                restic with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/store-mysql-backups-in-minio.html">
+                                Store MySQL Backups in MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/store-mongodb-backups-in-minio.html">
+                                Store MongoDB Backups in MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/store-postgresql-backups-in-minio.html">
+                                Store PostgreSQL Backups in MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/setup-caddy-proxy-with-minio.html">
+                                Setup Caddy proxy with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/setup-nginx-proxy-with-minio.html">
+                                Setup Nginx proxy with MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/aggregate-apache-logs-with-fluentd-and-minio.html">
+                                Store Apache Logs into MinIO                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/rclone-with-minio-server.html">
+                                Rclone with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/setup-apache-http-proxy-with-minio-server.html">
+                                Setup Apache HTTP proxy with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/upload-files-from-browser-using-pre-signed-urls.html">
+                                Upload files from browser using pre-signed URLs                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-run-minio-in-freenas.html">
+                                How to run MinIO in FreeNAS?                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-php-with-minio-server.html">
+                                How to use AWS SDK for PHP with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-ruby-with-minio-server.html">
+                                How to use AWS SDK for Ruby with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-python-with-minio-server.html">
+                                How to use AWS SDK for Python with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-javascript-with-minio-server.html">
+                                How to use AWS SDK for JavaScript with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-run-multiple-minio-servers-with-traef-k.html">
+                                How to run multiple MinIO servers with Træfɪk                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-go-with-minio-server.html">
+                                How to use AWS SDK for Go with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-java-with-minio-server.html">
+                                How to use AWS SDK for Java with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-paperclip-with-minio-server.html">
+                                How to use Paperclip with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-aws-sdk-for-net-with-minio-server.html">
+                                How to use AWS SDK for .NET with MinIO Server                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/how-to-use-minio-s-server-side-encryption-with-aws-cli.html">
+                                How to use MinIO's server-side-encryption with aws-cli                            </a>
+                        </li>
+                        <li>
+                            <a href="/docs/generate-let-s-encypt-certificate-using-concert-for-minio.html">
+                                Generate Let's Encrypt certificate using Certbot for MinIO                            </a>
+                        </li>
+                  </ul>
+                </li>
+          
+        </ul>
+      </div>
+    </aside>
+
+    <section class="content">
+
+    
+      <header class="header">
+        <a href="" class="sidebar-toggle"></a>
+
+        <div class="search">
+          <input type="text" class="search__text" placeholder="Search documents...">
+        </div>
+
+        <div class="doc-actions">
+
+          <div class="dropdown doc-actions__edit">
+              <a href="" class="dropdown__toggle dropdown__toggle--caret doc-actions__item">
+                <img src="/docs/img/icons/edit.svg" alt="">
+                <span>Suggest an Edit</span>
+              </a>
+
+              <div class="dropdown__menu dropdown__menu--right">
+                <ol>
+                  <li>Log into Github.</li>
+                  <li>Edit files with your changes by clicking on 'Edit the file in your fork of this project' button in Github.</li>
+                  <li>Commit changes via 'Create a new branch for this commit and start a pull request'.</li>
+                </ol>
+
+                <a href="https://github.com/minio/minio/blob/master/docs/docker/README.md" class="button button--primary button--block">Edit in Github</a>
+              </div>
+          </div>
+
+          
+            <div class="dropdown">
+              <a href="" class="dropdown__toggle dropdown__toggle--caret doc-actions__item">
+                <img src="/docs/img/icons/translate.svg" alt="">
+                <span>Translation</span>
+              </a>
+
+              <div class="dropdown__menu dropdown__menu--right">
+                    <a class="dropdown__item" href="/cn/">Chinese</a>
+              </div>
+            </div>
+        </div>
+      </header>
+      <section class="doc-preview">
+        <h1>MinIO Docker Quickstart Guide <a href="https://slack.min.io"><img src="https://slack.min.io/slack?type=svg" alt="Slack"></a> <a href="https://hub.docker.com/r/minio/minio/"><img src="https://img.shields.io/docker/pulls/minio/minio.svg?maxAge=604800" alt="Docker Pulls"></a></h1>
+
+<h2>Prerequisites</h2>
+
+<p>Docker installed on your machine. Download the relevant installer from <a href="https://www.docker.com/community-edition#/download">here</a>.</p>
+
+<h2>Run Standalone MinIO on Docker.</h2>
+
+<p>MinIO needs a persistent volume to store configuration and application data. However, for testing purposes, you can launch MinIO by simply passing a directory (<code>/data</code> in the example below). This directory gets created in the container filesystem at the time of container start. But all the data is lost after container exits.</p>
+
+<pre lang="sh"><code>docker run -p 9000:9000 minio/minio server /data
+</code></pre>
+
+<p>To create a MinIO container with persistent storage, you need to map local persistent directories from the host OS to virtual config <code>~/.minio</code> and export <code>/data</code> directories. To do this, run the below commands</p>
+
+<h4>GNU/Linux and macOS</h4>
+
+<pre lang="sh"><code>docker run -p 9000:9000 --name minio1 \
+  -v /mnt/data:/data \
+  minio/minio server /data
+</code></pre>
+
+<h4>Windows</h4>
+
+<pre lang="sh"><code>docker run -p 9000:9000 --name minio1 \
+  -v D:\data:/data \
+  minio/minio server /data
+</code></pre>
+
+<h2>Run Distributed MinIO on Docker</h2>
+
+<p>Distributed MinIO can be deployed via <a href="https://docs.min.io/docs/deploy-minio-on-docker-compose">Docker Compose</a> or <a href="https://docs.min.io/docs/deploy-minio-on-docker-swarm">Swarm mode</a>. The major difference between these two being, Docker Compose creates a single host, multi-container deployment, while Swarm mode creates a multi-host, multi-container deployment.</p>
+
+<p>This means Docker Compose lets you quickly get started with Distributed MinIO on your computer - ideal for development, testing, staging environments. While deploying Distributed MinIO on Swarm offers a more robust, production level deployment.</p>
+
+<h2>MinIO Docker Tips</h2>
+
+<h3>MinIO Custom Access and Secret Keys</h3>
+
+<p>To override MinIO&#39;s auto-generated keys, you may pass secret and access keys explicitly as environment variables. MinIO server also allows regular strings as access and secret keys.</p>
+
+<h4>GNU/Linux and macOS</h4>
+
+<pre lang="sh"><code>docker run -p 9000:9000 --name minio1 \
+  -e &quot;MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE&quot; \
+  -e &quot;MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot; \
+  -v /mnt/data:/data \
+  minio/minio server /data
+</code></pre>
+
+<h4>Windows</h4>
+
+<pre lang="powershell"><code>docker run -p 9000:9000 --name minio1 \
+  -e &quot;MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE&quot; \
+  -e &quot;MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot; \
+  -v D:\data:/data \
+  minio/minio server /data
+</code></pre>
+
+<h3>Run MinIO Docker as a regular user</h3>
+
+<p>Docker provides standardized mechanisms to run docker containers as non-root users.</p>
+
+<h4>GNU/Linux and macOS</h4>
+
+<p>On Linux and macOS you can use <code>--user</code> to run the container as regular user.</p>
+
+<blockquote>
+<p>NOTE: make sure --user has write permission to <em>${HOME}/data</em> prior to using <code>--user</code>.</p>
+
+<pre lang="sh"><code>mkdir -p ${HOME}/data
+docker run -p 9000:9000 \
+  --user $(id -u):$(id -g) \
+  --name minio1 \
+  -e &quot;MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE&quot; \
+  -e &quot;MINIO_SECRET_KEY=wJalrXUtnFEMIK7MDENGbPxRfiCYEXAMPLEKEY&quot; \
+  -v ${HOME}/data:/data \
+  minio/minio server /data
+</code></pre>
+</blockquote>
+
+<h4>Windows</h4>
+
+<p>On windows you would need to use <a href="https://success.docker.com/article/modernizing-traditional-dot-net-applications#integratedwindowsauthentication">Docker integrated windows authentication</a> and <a href="https://blogs.msdn.microsoft.com/containerstuff/2017/01/30/create-a-container-with-active-directory-support/">Create a container with Active Directory Support</a></p>
+
+<blockquote>
+<p>NOTE: make sure your AD/Windows user has write permissions to <em>D:\data</em> prior to using <code>credentialspec=</code>.</p>
+</blockquote>
+
+<pre lang="powershell"><code>docker run -p 9000:9000 \
+  --name minio1 \
+  --security-opt &quot;credentialspec=file://myuser.json&quot;
+  -e &quot;MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE&quot; \
+  -e &quot;MINIO_SECRET_KEY=wJalrXUtnFEMIK7MDENGbPxRfiCYEXAMPLEKEY&quot; \
+  -v D:\data:/data \
+  minio/minio server /data
+</code></pre>
+
+<h3>MinIO Custom Access and Secret Keys using Docker secrets</h3>
+
+<p>To override MinIO&#39;s auto-generated keys, you may pass secret and access keys explicitly by creating access and secret keys as <a href="https://docs.docker.com/engine/swarm/secrets/">Docker secrets</a>. MinIO server also allows regular strings as access and secret keys.</p>
+
+<pre><code>echo &quot;AKIAIOSFODNN7EXAMPLE&quot; | docker secret create access_key -
+echo &quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&quot; | docker secret create secret_key -
+</code></pre>
+
+<p>Create a MinIO service using <code>docker service</code> to read from Docker secrets.</p>
+
+<pre><code>docker service create --name=&quot;minio-service&quot; --secret=&quot;access_key&quot; --secret=&quot;secret_key&quot; minio/minio server /data
+</code></pre>
+
+<p>Read more about <code>docker service</code> <a href="https://docs.docker.com/engine/swarm/how-swarm-mode-works/services/">here</a></p>
+
+<h4>MinIO Custom Access and Secret Key files</h4>
+
+<p>To use other secret names follow the instructions above and replace <code>access_key</code> and <code>secret_key</code> with your custom names (e.g. <code>my_secret_key</code>,<code>my_custom_key</code>). Run your service with</p>
+
+<pre><code>docker service create --name=&quot;minio-service&quot; \
+  --secret=&quot;my_access_key&quot; \
+  --secret=&quot;my_secret_key&quot; \
+  --env=&quot;MINIO_ACCESS_KEY_FILE=my_access_key&quot; \
+  --env=&quot;MINIO_SECRET_KEY_FILE=my_secret_key&quot; \
+  minio/minio server /data
+</code></pre>
+
+<h3>Retrieving Container ID</h3>
+
+<p>To use Docker commands on a specific container, you need to know the <code>Container ID</code> for that container. To get the <code>Container ID</code>, run</p>
+
+<pre lang="sh"><code>docker ps -a
+</code></pre>
+
+<p><code>-a</code> flag makes sure you get all the containers (Created, Running, Exited). Then identify the <code>Container ID</code> from the output.</p>
+
+<h3>Starting and Stopping Containers</h3>
+
+<p>To start a stopped container, you can use the <a href="https://docs.docker.com/engine/reference/commandline/start/"><code>docker start</code></a> command.</p>
+
+<pre lang="sh"><code>docker start &lt;container_id&gt;
+</code></pre>
+
+<p>To stop a running container, you can use the <a href="https://docs.docker.com/engine/reference/commandline/stop/"><code>docker stop</code></a> command.</p>
+
+<pre lang="sh"><code>docker stop &lt;container_id&gt;
+</code></pre>
+
+<h3>MinIO container logs</h3>
+
+<p>To access MinIO logs, you can use the <a href="https://docs.docker.com/engine/reference/commandline/logs/"><code>docker logs</code></a> command.</p>
+
+<pre lang="sh"><code>docker logs &lt;container_id&gt;
+</code></pre>
+
+<h3>Monitor MinIO Docker Container</h3>
+
+<p>To monitor the resources used by MinIO container, you can use the <a href="https://docs.docker.com/engine/reference/commandline/stats/"><code>docker stats</code></a> command.</p>
+
+<pre lang="sh"><code>docker stats &lt;container_id&gt;
+</code></pre>
+
+<h2>Explore Further</h2>
+
+<ul>
+<li><a href="https://docs.min.io/docs/deploy-minio-on-docker-compose">Deploy MinIO on Docker Compose</a></li>
+<li><a href="https://docs.min.io/docs/deploy-minio-on-docker-swarm">Deploy MinIO on Docker Swarm</a></li>
+<li><a href="https://docs.min.io/docs/distributed-minio-quickstart-guide">Distributed MinIO Quickstart Guide</a></li>
+<li><a href="https://docs.min.io/docs/minio-erasure-code-quickstart-guide">MinIO Erasure Code QuickStart Guide</a></li>
+</ul>
+      </section>
+            <footer class="footer">
+
+                          <div class="footer__widget">
+                              <a href="https://slack.min.io">Talk to the community</a>
+                          </div>
+
+      </footer>
+    </section>
+
+    <script src="/docs/vendors/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/docs/vendors/highlight.js/highlight.min.js"></script>
+    <script src="/docs/vendors/clipboard.js/clipboard.min.js"></script>
+
+            <!-- Algolia DocSearch -->
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+            <script type="text/javascript">
+              docsearch ({
+                  apiKey: '0ba0d26da4d1483f96c03fe508304a64',
+                  indexName: 'minio',
+                  inputSelector: '.search__text',
+                  algoliaOptions: { 'facetFilters': ["tags: en"] }
+              });
+            </script>
+          <!-- Google Analytics -->
+          <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push (arguments)
+                        }, i[r].l = 1 * new Date ();
+                a = s.createElement (o),
+                        m = s.getElementsByTagName (o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore (a, m)
+            }) (window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            ga ('create', 'UA-56860620-1', 'auto');
+            ga ('send', 'pageview');
+          </script>
+          <!-- LeadFeeder -->
+          <script>
+            (function(){
+              window.ldfdr = window.ldfdr || {};
+              (function(d, s, ss, fs){
+                fs = d.getElementsByTagName(s)[0];
+                function ce(src){
+                  var cs  = d.createElement(s);
+                  cs.src = src;
+                  setTimeout(function(){fs.parentNode.insertBefore(cs,fs)}, 1);
+                }
+                ce(ss);
+              })(document, 'script', 'https://lftracker.leadfeeder.com/lftracker_v1_DzLR5a5kKJA7BoQ2.js');
+            })();
+          </script>
+          <!-- KickFire -->
+          <script>
+            var DID = 258964;
+            var MyPageName = window.location.href.replace("http://","");
+          </script>
+          <script src="https://stats.sa-as.com/live.js"></script>
+
+    <script src="/docs/js/gluegun.min.js"></script>
+  </body>
+</html>
