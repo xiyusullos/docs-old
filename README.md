@@ -1,0 +1,2 @@
+# docs
+Minio chinese document
