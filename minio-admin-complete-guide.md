@@ -110,25 +110,26 @@ mc config host add <ALIAS> <YOUR-MINIO-ENDPOINT> [YOUR-ACCESS-KEY] [YOUR-SECRET-
 
 1.参数键
 
-   ```
-    mc config host add minio http://192.168.1.51:9000 BKIKJAA5BMMU2RHO6IBB V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12
-   ```
+```
+mc config host add minio http://192.168.1.51:9000 BKIKJAA5BMMU2RHO6IBB V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12
+```
 
 2.按键提示
 
-   ```
-    mc config host add minio http://192.168.1.51:9000
-   Enter Access Key: BKIKJAA5BMMU2RHO6IBB
-   Enter Secret Key: V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12
-   ```
+```
+mc config host add minio http://192.168.1.51:9000
+Enter Access Key: BKIKJAA5BMMU2RHO6IBB
+Enter Secret Key: V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12
+```
 
 2.管道按键
 
-   ```
-   echo -e "BKIKJAA5BMMU2RHO6IBB\nV7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12" | \
-       mc config host add minio http://192.168.1.51:9000
-   ```
-
+```
+echo -e "BKIKJAA5BMMU2RHO6IBB\nV7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12" | \
+mc config host add minio http://192.168.1.51:9000
+```
+  
+  
 ## 4.测试您的设置
 
 *例：*
