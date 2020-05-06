@@ -290,21 +290,22 @@ mc admin --json info play
 
 ## 7.命令
 
-|命令|
-|：------------------------------------------------ ----------------------- |
-| [**service**-重新启动和停止所有MinIO服务器]（＃service）|
-| [**update**-更新所有MinIO服务器]（＃update）|
-| [**info**-显示MinIO服务器信息]（＃info）|
-| [**user**-管理用户]（＃user）|
-| [**group**-管理组]（＃group）|
-| [**policy**-管理固定政策]（＃policy）|
-| [**config**-管理服务器配置文件]（＃config）|
-| [**heal**-修复MinIO服务器上的磁盘，存储桶和对象]（＃heal）|
-| [**profile**-生成用于调试目的的配置文件数据]（＃profile）|
-| [**top**-为MinIO提供类似顶部的统计信息]（＃top）|
-| [**trace**-显示MinIO服务器的http跟踪]（＃trace）|
-| [**console**-显示MinIO服务器的控制台日志]（＃console）|
-| [**prometheus**-管理prometheus配置设置]（＃prometheus）|
+| 命令                                                               |
+|:-----------------------------------------------------------------------|
+| [**service** - 重新启动和停止所有MinIO服务器](#service)           |
+| [**update** - 更新所有MinIO服务器](#update)                      |
+| [**info** - 显示MinIO服务器信息](#info)                   |
+| [**user** - 管理用户](#user)                                       |
+| [**group** - 管理组](#group)                                    |
+| [**policy** - 管理固定政策](#policy)                         |
+| [**config** - 管理服务器配置文件](#config)               |
+| [**heal** - 修复MinIO服务器上的磁盘，存储桶和对象](#heal)    |
+| [**profile** - 生成用于调试目的的配置文件数据](#profile) |
+| [**top** - 为MinIO提供类似顶部的统计信息](#top)                |
+| [**trace** - 显示MinIO服务器的http跟踪](#trace)                 |
+| [**console** - 显示MinIO服务器的控制台日志](#console)           |
+| [**prometheus** - 管理prometheus配置设置](#prometheus)     |
+
 
 <a name="update"> </a>
 ### 命令`update`-更新所有MinIO服务器
