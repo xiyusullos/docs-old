@@ -1,4 +1,4 @@
-# MinIO管理员完整指南[！[Slack]（https://slack.min.io/slack?type=svg）]（https://slack.min.io）
+# MinIO管理员完整指南[![Slack](https://slack.min.io/slack?type=svg)](https://slack.min.io)
 
 MinIO Client（mc）提供了“ admin”子命令来对您的MinIO部署执行管理任务。
 
