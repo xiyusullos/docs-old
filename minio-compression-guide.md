@@ -46,7 +46,7 @@ export MINIO_COMPRESS_MIME_TYPES="application/pdf"
 
     - 扩展名
 
-      | `gz` | (GZIP)
+     | `gz` | (GZIP)
       | `bz2` | (BZIP2)
       | `rar` | (WinRAR)
       | `zip` | (ZIP)
@@ -66,7 +66,7 @@ export MINIO_COMPRESS_MIME_TYPES="application/pdf"
       | `application/x-bz2` |
       | `application/x-compress` |
       | `application/x-xz` |
-
+      
 即使所有类型都启用了压缩，所有具有这些扩展名和mime类型的文件都将从压缩中排除。
 
 - MinIO不支持压缩加密，因为压缩和加密在一起可能为诸如 [`CRIME and BREACH`](https://blog.minio.io/c-e-compression-encryption-cb6b7f04a369)
