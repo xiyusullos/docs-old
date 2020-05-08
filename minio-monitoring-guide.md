@@ -9,7 +9,7 @@ MinIO服务器具有两个与运行状况检查相关的未经身份验证的端
 - 可在以下位置获得活力探针 `/minio/health/live`
 - 可在以下位置获得就绪探针 `/minio/health/ready`
 
-在[MinIO healthcheck guide](https://github.com/minio/minio/blob/master/docs/metrics/healthcheck/README.md)中阅读有关如何使用这些端点的更多信息。 
+在[MinIO healthcheck 指南](https://github.com/minio/minio/blob/master/docs/metrics/healthcheck/README.md)中阅读有关如何使用这些端点的更多信息。 
 
 ### Prometheus 探测
 
