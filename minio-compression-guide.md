@@ -46,40 +46,25 @@ export MINIO_COMPRESS_MIME_TYPES="application/pdf"
 
     - 扩展名
 
-      | `gz` | (GZIP)
-      
-      | `bz2` | (BZIP2)
-      
-      | `rar` | (WinRAR)
-      
-      | `zip` | (ZIP)
-      
-      | `7z` | (7-Zip)
-      
-      | `xz` | (LZMA)
-      
-      | `mp4` | (MP4)
-      
-      | `mkv` | (MKV media)
-      
+      | `gz` | (GZIP)    
+      | `bz2` | (BZIP2)     
+      | `rar` | (WinRAR)    
+      | `zip` | (ZIP)  
+      | `7z` | (7-Zip)   
+      | `xz` | (LZMA)     
+      | `mp4` | (MP4)     
+      | `mkv` | (MKV media)     
       | `mov` | (MOV)
 
     - 内容类型
 
-      | `video/*` |
-      
-      | `audio/*` |
-      
-      | `application/zip` |
-      
-      | `application/x-gzip` |
-      
-      | `application/zip` |
-      
-      | `application/x-bz2` |
-      
-      | `application/x-compress` |
-      
+      | `video/*` |    
+      | `audio/*` |   
+      | `application/zip` |    
+      | `application/x-gzip` |     
+      | `application/zip` |     
+      | `application/x-bz2` |     
+      | `application/x-compress` |     
       | `application/x-xz` |
       
 即使所有类型都启用了压缩，所有具有这些扩展名和mime类型的文件都将从压缩中排除。
