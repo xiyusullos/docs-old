@@ -15,7 +15,7 @@ Java 1.8或更高版本:
 <dependency>
     <groupId>io.minio</groupId>
     <artifactId>minio</artifactId>
-    <version>3.0.10</version>
+    <version>7.0.2</version>
 </dependency>
 ```
 
