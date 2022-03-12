@@ -29,7 +29,7 @@ docker run minio / mc admin info play
 ### Docker Edge
 ```
 docker pull minio / mc：edge
-docker运行minio / mc:edge admin info server play
+docker run minio / mc:edge admin info server play
 ```
 
 ### Homebrew（macOS）
